@@ -97,9 +97,14 @@ footer {
 
 .carousel-slide img {
     width: 100%;
-    height: 360px;
+    height: 500px;
     object-fit: cover;
     display: block;
+}
+
+/* Deslocamento para foto2 */
+.carousel-slide:nth-child(2) img {
+    object-position: center -240px;
 }
 
 .carousel-button {
