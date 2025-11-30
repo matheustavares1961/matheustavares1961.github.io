@@ -3,83 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Trabalho</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f7f7f7;
-            color: #333;
-        }
-        header {
-            background: url("sua-imagem-de-capa.jpg") center/cover no-repeat;
-            height: 40vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
-        h2 {
-            margin-top: 40px;
-            text-align: center;
-        }
-        p {
-            line-height: 1.6;
-            text-align: center;
-            font-size: 1.1rem;
-        }
-        .galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-        }
-        .galeria img {
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #555;
-        }
-    </style>
+    <title>Violação de Boot Seguro</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <header>
-        Meu Trabalho
-    </header>
-
-    <div class="container">
-        <h2>Sobre Mim</h2>
-        <p>
-            Aqui você escreve uma descrição do seu trabalho: quem você é, o que faz,
-            quais projetos realizou, seu estilo de criação, etc.
-        </p>
-
-        <h2>Galeria</h2>
-        <div class="galeria">
-            <img src="foto1.jpg" alt="Foto 1">
-            <img src="foto2.jpg" alt="Foto 2">
-            <img src="foto3.jpg" alt="Foto 3">
-            <img src="foto4.jpg" alt="Foto 4">
-        </div>
+    <div class="header-space">
+        <header>
+            Projeto de Hardware para Violação de Boot Seguro via Multiplexação de BIOS: Um Estudo de Caso com ATM
+        </header>
     </div>
 
+
+    <div class="container">
+        <div class="carousel" aria-label="Galeria de imagens">
+            <button class="carousel-button prev" aria-label="Anterior">&#10094;</button>
+            <div class="carousel-track-container">
+                <ul class="carousel-track">
+                    <li class="carousel-slide current-slide"><img src="foto1.jpg" alt="Foto 1"></li>
+                    <li class="carousel-slide"><img src="foto2.jpg" alt="Foto 2"></li>
+                    <li class="carousel-slide"><img src="foto3.jpg" alt="Foto 3"></li>
+                    <li class="carousel-slide"><img src="foto4.jpg" alt="Foto 4"></li>
+                </ul>
+            </div>
+            <button class="carousel-button next" aria-label="Próximo">&#10095;</button>
+
+            <div class="carousel-nav" aria-hidden="false">
+                <button class="carousel-indicator current-slide" aria-label="Slide 1"></button>
+                <button class="carousel-indicator" aria-label="Slide 2"></button>
+                <button class="carousel-indicator" aria-label="Slide 3"></button>
+                <button class="carousel-indicator" aria-label="Slide 4"></button>
+            </div>
+        </div>
+
+        <h2>Sobre o Projeto</h2>
+         <div class="divider"></div>
+        <p>
+            Este projeto investiga vulnerabilidades práticas de segurança da <b>BIOS</b> em Caixas Eletrônicos (ATMs), analisando características de hardware, firmware e mecanismos de proteção comumente encontrados nesses dispositivos. O trabalho explora possíveis vetores de ataque e propõe estratégias de mitigação adequadas.
+        </p>
+        <p>
+            A <b>BIOS</b>, historicamente negligenciada sob a perspectiva de segurança, representa o primeiro estágio de inicialização em sistemas embarcados, estabelecendo a raiz de confiança para todos os demais componentes. Uma violação neste nível pode comprometer a integridade do sistema inteiro, permitindo a execução de código malicioso antes mesmo do carregamento do sistema operacional.
+        </p>
+        <p>
+            A relevância deste estudo é indiscutível: ATMs são componentes críticos da infraestrutura financeira global, tornando sua segurança uma prioridade estratégica essencial.
+        </p>
+
+        <h2>Desenvolvimento</h2>
+         <div class="divider"></div>
+
+        <h2>Resultados</h2>
+         <div class="divider"></div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const nextButton = document.querySelector('.carousel-button.next');
+        const prevButton = document.querySelector('.carousel-button.prev');
+        const dotsNav = document.querySelector('.carousel-nav');
+        const dots = Array.from(dotsNav.children);
+        const carousel = document.querySelector('.carousel');
+
+        // position slides side-by-side
+        slides.forEach((slide, index) => {
+            slide.style.left = `${index * 100}%`;
+        });
+
+        function moveToIndex(index) {
+            const clamped = (index + slides.length) % slides.length;
+            track.style.transform = `translateX(-${clamped * 100}%)`;
+            track.querySelector('.current-slide').classList.remove('current-slide');
+            slides[clamped].classList.add('current-slide');
+            dotsNav.querySelector('.current-slide').classList.remove('current-slide');
+            dots[clamped].classList.add('current-slide');
+        }
+
+        function currentIndex() {
+            return slides.findIndex(s => s.classList.contains('current-slide'));
+        }
+
+        nextButton.addEventListener('click', () => {
+            moveToIndex(currentIndex() + 1);
+        });
+
+        prevButton.addEventListener('click', () => {
+            moveToIndex(currentIndex() - 1);
+        });
+
+        dotsNav.addEventListener('click', (e) => {
+            const targetDot = e.target.closest('button');
+            if (!targetDot) return;
+            const targetIndex = dots.findIndex(d => d === targetDot);
+            moveToIndex(targetIndex);
+        });
+
+        // Auto-play with pause on hover/focus
+        let autoPlayInterval = setInterval(() => moveToIndex(currentIndex() + 1), 4000);
+        function pauseAuto() { clearInterval(autoPlayInterval); }
+        function resumeAuto() { clearInterval(autoPlayInterval); autoPlayInterval = setInterval(() => moveToIndex(currentIndex() + 1), 4000); }
+
+        carousel.addEventListener('mouseenter', pauseAuto);
+        carousel.addEventListener('mouseleave', resumeAuto);
+        carousel.addEventListener('focusin', pauseAuto);
+        carousel.addEventListener('focusout', resumeAuto);
+
+        // keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
+            if (e.key === 'ArrowLeft') prevButton.click();
+            if (e.key === 'ArrowRight') nextButton.click();
+        });
+    });
+    </script>
+
     <footer>
-        © 2025 — Seu Nome
+        © 2025 — Matheus Tavares de Andrade
     </footer>
 
 </body>
