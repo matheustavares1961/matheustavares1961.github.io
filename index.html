@@ -48,20 +48,25 @@
         <h2>Sobre o Projeto</h2>
          <div class="divider"></div>
         <p>
-            Este projeto investiga vulnerabilidades práticas de segurança da <b>BIOS</b> em Caixas Eletrônicos (ATMs), analisando características de hardware, firmware e mecanismos de proteção comumente encontrados nesses dispositivos. O trabalho explora possíveis vetores de ataque e propõe estratégias de mitigação adequadas.
-        </p>
+            Este projeto investiga vulnerabilidades práticas de segurança da <b>BIOS</b> em Caixas Eletrônicos (ATMs), analisando características de hardware, firmware e mecanismos de proteção comumente encontrados nesses dispositivos. Nos últimos anos, têm-se observado investidas voltadas ao hardware e ao firmware desses equipamentos, cuja criticidade é elevada por operarem em camadas inferiores ao sistema operacional, tornando-se menos perceptíveis a mecanismos convencionais de defesa, como antivírus, firewalls e sistemas de detecção de intrusão.
         <p>
             A <b>BIOS</b>, historicamente negligenciada sob a perspectiva de segurança, representa o primeiro estágio de inicialização em sistemas embarcados, estabelecendo a raiz de confiança para todos os demais componentes. Uma violação neste nível pode comprometer a integridade do sistema inteiro, permitindo a execução de código malicioso antes mesmo do carregamento do sistema operacional.
         </p>
         <p>
-            A relevância deste estudo é indiscutível: ATMs são componentes críticos da infraestrutura financeira global, tornando sua segurança uma prioridade estratégica essencial.
+            O objetivo geral deste trabalho é demonstrar que a cadeia de segurança de boot do ATM analisado pode ser contornada, permitindo a execução de código não autorizado. Essa vulnerabilidade decorre do fato de que as medidas de segurança atualmente empregadas concentram-se, em grande parte, na proteção contra ataques internos, baseando-se em verificações de integridade e validação de código incorporadas ao próprio processo de boot seguro. Contudo, há a possibilidade de exploração de falhas presentes nas transições entre as etapas dessa cadeia, as quais não são cobertas pelos mecanismos internos de proteção.
         </p>
 
         <h2>Desenvolvimento</h2>
          <div class="divider"></div>
+        <p>
+            O desenvolvimento do trabalho baseou-se no framework de segurança “The Penetration Testing Execution Standard” (PTES). Inicialmente, foi realizada uma coleta de inteligência nos níveis de hardware e firmware e, a partir dessas informações, elaborou-se um protótipo capaz de atender às exigências elétricas e de temporização necessárias para contornar a cadeia de segurança. Tanto o hardware quanto o firmware puderam ser submetidos a engenharia reversa, apesar das medidas de proteção implementadas.
+        </p>
 
         <h2>Resultados</h2>
          <div class="divider"></div>
+        <p>
+            As hipóteses de pesquisa foram confirmadas, evidenciando que a intervenção no hardware pode ser realizada e que a cadeia de segurança do sistema pode ser violada. Foi possível acessar uma shell UEFI e, a partir dela, executar aplicações arbitrárias. Além disso, foi possível modificar o estado de carregamento de drivers, alterar entradas de boot e ler ou atualizar variáveis de configuração.
+        </p>
     </div>
 
     <script>
